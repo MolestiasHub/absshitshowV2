@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 public class Astarties {
+	Toolz t = new Toolz();
 	public ArrayList<Tile> astar(Map w, Tile start, Tile finish){
 		
 		ArrayList<Tile> openset = new ArrayList<Tile>();
@@ -8,15 +9,15 @@ public class Astarties {
 
 		openset.add(start);
 		start.g=0;
-		start.h=(Math.sqrt(Math.pow((Math.abs(start.x-finish.x)),2)+Math.pow((Math.abs(start.y-finish.y)),2)));
+		start.h=t.length(start, finish);
 		start.f=start.g+start.h;
 		Tile x = start;
-		while(!openset.isEmpty()) {
+		/*while(!openset.isEmpty()) {
 			for(Tile i : openset) {
 				if (Double.compare(i.f, x.f)==-1) {
-					x=i;
+					i=x;
 				}
-			}
+			}*/
 				if (x==finish) {
 					return path;
 				}
@@ -26,12 +27,17 @@ public class Astarties {
 			
 			
 			for(int i = 0;i<neigh.size();i++) {
+				if (neigh.size()>i) {
 				Tile y = neigh.get(i);
+				
 				if (closedset.contains(y)) {
 					continue;
 				}
-				double temp = x.g + (Math.sqrt(Math.pow((Math.abs(x.x-y.x)),2)+Math.pow((Math.abs(y.x-y.y)),2)));
+				double temp = x.g + t.length(x, y);
 				boolean better =false;
+				System.out.println("y" +y.g);
+				System.out.println(temp);
+				System.out.println(x.g);
 				if (!openset.contains(y)) {
 					openset.add(y);
 					better = true;
@@ -48,11 +54,13 @@ public class Astarties {
 				if (better) {
 					y.camefrom = x;
 					y.g=temp;
-					y.h=(Math.sqrt(Math.pow((Math.abs(y.x-finish.x)),2)+Math.pow((Math.abs(y.y-finish.y)),2)));
+					y.h=t.length(finish, y);
 					y.f=y.g+y.h;
+					
 				}
 				}
 		}
+		
 		path = goback(start, finish, path);
 		return path;
 		}

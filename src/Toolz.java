@@ -40,6 +40,9 @@ public class Toolz {
 			}
 			System.out.println();
 		}
-		
+	}
+	public double length (Tile start, Tile finish) {
+		double l =(Math.sqrt(Math.pow((Math.abs(start.x-finish.x)),2)+Math.pow((Math.abs(start.y-finish.y)),2)));
+		return l;
 	}
 }

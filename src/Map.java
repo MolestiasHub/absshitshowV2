@@ -35,7 +35,7 @@ public class Map {
 			 if(x>0&&x<map.length) {
 				 for(int j=-1;j<2;j++) {
 					 int y = b.y - j;
-					 if(y>0&&y<map[0].length&&x!=0&&y!=0&&!map[x][y].blocked) {
+					 if(y>0&&y<map[0].length&&x!=b.x&&y!=b.y&&!map[x][y].blocked) {
 					 close.add (map[x][y]);
 					 }
 				 }

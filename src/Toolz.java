@@ -5,29 +5,40 @@ public class Toolz {
 	ArrayList<Integer> hight = new ArrayList<Integer>();
 	ArrayList <Integer> length = new ArrayList<Integer>();
 	Random r = new Random();
-	public int[] random(int limx, int limy) {
+	public int[] random(int limx, int limy)  {
 		
 			
-		int[] ran = new int[2];
-			while (true) {
-				int a = r.nextInt(limx);
-				if(!hight.contains(a)) {
-					hight.add(a);
-					ran[0]=a;
-					break;
-				}
-			}
-			while (true) {
-				int b = r.nextInt(limy);
-				if(!length.contains(b)) {
-					length.add(b);
-					ran[1]=b;
-					break;
-				}
-			}
-	
-			return ran;
+		int[] x = single(limx, length);
+		int[] y = single(limy, hight);
+		
+		if(x[1] == 1 && y[1] == 1) {
+			System.err.println("Too much blocks");
+		}
+
+		int[] ran = { x[0], y[0] };
+		
+		return ran;
 	}
+	
+	private int[] single(int lim, ArrayList<Integer> closed) {
+			
+		int counter = 0;
+		
+		while (true) {
+			int a = r.nextInt(lim);
+			counter++;
+			if(counter > 100) {
+				int[] n = {a, 1};
+				return n;
+			}
+			if(!closed.contains(a)) {
+				closed.add(a);
+				int[] n = {a, 0};
+				return n;
+			}
+		}
+	}
+		
 	public void print(Tile[][] map) {
 		for (int i=0;i<map.length;i++) {
 			for (int j=0;j<map[i].length;j++) {

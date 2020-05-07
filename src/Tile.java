@@ -13,4 +13,7 @@ public class Tile {
 		this.g = g;
 		this.blocked=blocked;
 	}
+	public String toString() {
+		return x + ";" + y;
+	}
 }

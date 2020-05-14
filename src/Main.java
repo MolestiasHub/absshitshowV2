@@ -4,7 +4,8 @@ import java.util.Arrays;
 public class Main {
 
 	public static void main(String[] args) throws Exception {
-		Map mappie = new Map(10,10,70,new Toolz());
+		Toolz w = new Toolz();
+		Map mappie = new Map(10,10,5,new Toolz());
 		
 		/*int[][] preset = {
 			{0, 1, 0, 0, 1, 0, 1, 0, 1, 0},
@@ -33,5 +34,7 @@ public class Main {
 		System.out.println(start + " " + finish);
 		ArrayList<Tile> a = astie.astar(mappie, start, finish);
 		System.out.println(Arrays.deepToString(a.toArray()));
+		w.xl(mappie.returner(), a);
+		
 	}
 }

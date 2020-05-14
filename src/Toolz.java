@@ -1,6 +1,14 @@
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
-
+import jxl.*;
+import jxl.write.Label;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+import jxl.write.WriteException;
+import jxl.Workbook;
+import jxl.write.Number;
 public class Toolz {
 	ArrayList<Integer> hight = new ArrayList<Integer>();
 	ArrayList <Integer> length = new ArrayList<Integer>();
@@ -55,5 +63,53 @@ public class Toolz {
 	public double length (Tile start, Tile finish) {
 		double l =(Math.sqrt(Math.pow((Math.abs(start.x-finish.x)),2)+Math.pow((Math.abs(start.y-finish.y)),2)));
 		return l;
+	}
+	public void xl (Tile[][] map, ArrayList<Tile> a) {
+				final String EXCEL__FILE__LOCATION = "loc";
+		        WritableWorkbook ex = null;
+		        try {
+
+		            ex = Workbook.createWorkbook(new File(EXCEL__FILE__LOCATION));
+		            WritableSheet excelSheet = ex.createSheet("Sheet 1", 0);
+		        		for (int i=0;i<map.length;i++) {
+		        			for (int j=0;j<map[i].length;j++) {
+		        				if(map[i][j].blocked==true) {
+		        					Label label = new Label(i, j, "Block");
+		        		            excelSheet.addCell(label);
+		        				}
+		        				else {
+		        					Label label = new Label(i, j,"" + map[i][j].x +"," + map[i][j].y);
+		        		            excelSheet.addCell(label);
+		        				}
+		        			}
+		        		}
+		        		for (int i=0;i<a.size();i++){
+		        			Label label = new Label(a.get(i).x,a.get(i).y, "Road");
+        		            excelSheet.addCell(label);
+		        		}
+		            
+		            ex.write();
+
+
+		        } catch (IOException e) {
+		            e.printStackTrace();
+		        } catch (WriteException e) {
+		            e.printStackTrace();
+		        } finally {
+
+		            if (ex != null) {
+		                try {
+		                    ex.close();
+		                } catch (IOException e) {
+		                    e.printStackTrace();
+		                } catch (WriteException e) {
+		                    e.printStackTrace();
+		                }
+		            }
+
+
+		        }
+
+		    
 	}
 }

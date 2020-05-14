@@ -18,7 +18,9 @@ public class Map {
 		}	
 		w.print(map);
 	}
-	
+	public Tile[][] returner() {
+		return map;
+	}
 	public Map(int[][] m) {
 		w = new Toolz();
 		map = new Tile[m.length][m[0].length];
